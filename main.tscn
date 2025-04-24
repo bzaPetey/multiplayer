@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://t8oh88v7mlno"]
+
+[ext_resource type="PackedScene" uid="uid://b2ni2muon4vdq" path="res://player.tscn" id="1_4dhhi"]
+[ext_resource type="Script" path="res://main.gd" id="1_2027r"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_52gud"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_raktw"]
+sky_material = SubResource("ProceduralSkyMaterial_52gud")
+
+[sub_resource type="Environment" id="Environment_un8wm"]
+background_mode = 2
+sky = SubResource("Sky_raktw")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_dff33"]
+size = Vector3(50, 0.1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2eaju"]
+size = Vector3(50, 0.1, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cvpsk"]
+size = Vector3(10, 2, 1)
+
+[node name="Main" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.600666, 0)
+script = ExtResource("1_2027r")
+player_prefab = ExtResource("1_4dhhi")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_un8wm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.70529, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_dff33")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_2eaju")
+
+[node name="Menu" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="Menu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.0
+offset_top = -39.0
+offset_right = 91.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="btnStart" type="Button" parent="Menu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start Server"
+
+[node name="btnJoin" type="Button" parent="Menu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join Server"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.55789, -6.74647)
+mesh = SubResource("BoxMesh_cvpsk")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player.tscn")
+spawn_path = NodePath("..")
+
+[connection signal="pressed" from="Menu/Panel/MarginContainer/VBoxContainer/btnStart" to="." method="_on_btn_start_pressed"]
+[connection signal="pressed" from="Menu/Panel/MarginContainer/VBoxContainer/btnJoin" to="." method="_on_btn_join_pressed"]
