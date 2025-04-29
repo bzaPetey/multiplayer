@@ -17,6 +17,7 @@ properties/1/replication_mode = 1
 [sub_resource type="SphereMesh" id="SphereMesh_4flbx"]
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_4flbx")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

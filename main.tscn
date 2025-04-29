@@ -69,7 +69,11 @@ text = "Join Server"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://bivmpwjlej2uh")
-spawn_path = NodePath("..")
+spawn_path = NodePath("../Players")
+spawn_limit = 4
+
+[node name="Players" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.62206, 0)
 
 [connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/btnServer" to="." method="_on_btn_server_pressed"]
 [connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/btnClient" to="." method="_on_btn_client_pressed"]
