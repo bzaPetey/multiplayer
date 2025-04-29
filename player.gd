@@ -1,5 +1,7 @@
 class_name Player extends CharacterBody3D
 
+@export var player_name:String = "Anon"
+@export var name_plate: Label
 @export var mouse_sensitivity:float = 0.002
 
 @onready var cam: Camera3D = $Camera3D
@@ -9,6 +11,7 @@ const JUMP_VELOCITY:float = 4.5
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
+	name_plate.text = player_name + " " + str(name)
 
 
 

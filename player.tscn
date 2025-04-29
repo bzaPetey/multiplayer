@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bivmpwjlej2uh"]
+[gd_scene load_steps=8 format=3 uid="uid://bivmpwjlej2uh"]
 
 [ext_resource type="Script" uid="uid://cgj00kmiuc18l" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://c7hw215jdqe11" path="res://name_plate.tscn" id="2_onrkg"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4flbx"]
 properties/0/path = NodePath(".:position")
@@ -16,9 +17,13 @@ properties/1/replication_mode = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_4flbx"]
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_i3pqv"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("name_plate")]
 collision_layer = 2
 script = ExtResource("1_4flbx")
+name_plate = NodePath("SubViewport/NamePlate")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_4flbx")
@@ -35,3 +40,13 @@ transform = Transform3D(1, 0, 0, 0, 0.997244, 0.0741955, 0, -0.0741955, 0.997244
 [node name="eye" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11527, -0.205945)
 mesh = SubResource("SphereMesh_4flbx")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+
+[node name="NamePlate" parent="SubViewport" instance=ExtResource("2_onrkg")]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58473, 0)
+texture = SubResource("ViewportTexture_i3pqv")
