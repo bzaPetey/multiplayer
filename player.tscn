@@ -10,36 +10,41 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath(".:player_color")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
-
 [sub_resource type="SphereMesh" id="SphereMesh_4flbx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_i3pqv"]
 viewport_path = NodePath("SubViewport")
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("name_plate")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("name_plate", "body")]
 collision_layer = 2
 script = ExtResource("1_4flbx")
 name_plate = NodePath("SubViewport/NamePlate")
+body = NodePath("Body")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_4flbx")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_sh265")
+
+[node name="eye" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11527, -0.205945)
+mesh = SubResource("SphereMesh_4flbx")
+skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_4flbx")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.997244, 0.0741955, 0, -0.0741955, 0.997244, 0.392695, 0.408027, 1.88107)
-
-[node name="eye" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11527, -0.205945)
-mesh = SubResource("SphereMesh_4flbx")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 disable_3d = true
