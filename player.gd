@@ -8,12 +8,12 @@ class_name Player extends CharacterBody3D
 @export var player_color: Color = Color.WHITE:
 	set = set_player_color
 
-
-
 @onready var cam: Camera3D = $Camera3D
 
 const SPEED: float = 5.0
 const JUMP_VELOCITY: float = 4.5
+
+
 
 func _enter_tree() -> void:
 	randomize()
@@ -34,6 +34,8 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	cam.current = true
 
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
 		return
@@ -45,6 +47,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		cam.rotate_x(-event.relative.y * mouse_sensitivity)
 		cam.rotation.x = clampf(cam.rotation.x, -deg_to_rad(90), deg_to_rad(90))
+
+
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
@@ -67,8 +71,9 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-# ---- COLOR HANDLING ----
 
+
+# ---- COLOR HANDLING ----
 func _apply_color() -> void:
 	var mat: Material = body.get_active_material(0)
 
@@ -77,6 +82,8 @@ func _apply_color() -> void:
 		body.set_surface_override_material(0, mat)
 
 	mat.albedo_color = player_color
+
+
 
 func set_player_color(new_color: Color) -> void:
 	player_color = new_color

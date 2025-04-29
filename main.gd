@@ -20,11 +20,14 @@ func _on_btn_server_pressed() -> void:
 	add_player(multiplayer.get_unique_id())
 
 
+
 func _on_btn_client_pressed() -> void:
 	menu.hide()
 	peer.create_client("127.0.0.1", port)
 	multiplayer.multiplayer_peer = peer
 # ---------------------------------------------------------------------------
+
+
 
 #make an rpc
 @rpc("any_peer") 
@@ -60,6 +63,8 @@ func _on_peer_connected(id : int) -> void:
 		for existing in multiplayer.get_peers():
 			if existing != id:
 				add_player.rpc_id(id, existing)
+
+
 
 func _on_peer_disconnected(id : int) -> void:
 	if multiplayer.is_server():
