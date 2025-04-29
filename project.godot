@@ -11,6 +11,17 @@ config_version=5
 [application]
 
 config/name="multiplayer"
-run/main_scene="res://main.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+run/main_scene="uid://ddyxa8obqpg0n"
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[input]
+
+RotateLeft={
+"deadzone": 0.2,
+"events": []
+}
+RotateRight={
+"deadzone": 0.2,
+"events": []
+}

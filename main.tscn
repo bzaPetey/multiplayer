@@ -1,96 +1,75 @@
-[gd_scene load_steps=9 format=3 uid="uid://t8oh88v7mlno"]
+[gd_scene load_steps=7 format=3 uid="uid://ddyxa8obqpg0n"]
 
-[ext_resource type="PackedScene" uid="uid://b2ni2muon4vdq" path="res://player.tscn" id="1_4dhhi"]
-[ext_resource type="Script" path="res://main.gd" id="1_2027r"]
+[ext_resource type="Script" uid="uid://c3fc7o4kdnprg" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://cw7rljjgffdhm" path="res://environ.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://bivmpwjlej2uh" path="res://player.tscn" id="2_h2yge"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_52gud"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
-[sub_resource type="Sky" id="Sky_raktw"]
-sky_material = SubResource("ProceduralSkyMaterial_52gud")
+[sub_resource type="Sky" id="Sky_h2yge"]
+sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
 
-[sub_resource type="Environment" id="Environment_un8wm"]
+[sub_resource type="Environment" id="Environment_1bvp3"]
 background_mode = 2
-sky = SubResource("Sky_raktw")
+sky = SubResource("Sky_h2yge")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_dff33"]
-size = Vector3(50, 0.1, 50)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_2eaju"]
-size = Vector3(50, 0.1, 50)
-
-[sub_resource type="BoxMesh" id="BoxMesh_cvpsk"]
-size = Vector3(10, 2, 1)
-
 [node name="Main" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.600666, 0)
-script = ExtResource("1_2027r")
-player_prefab = ExtResource("1_4dhhi")
+script = ExtResource("1_0xm2m")
+player_prefab = ExtResource("2_h2yge")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_un8wm")
+environment = SubResource("Environment_1bvp3")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+transform = Transform3D(-0.387039, -0.660537, 0.643344, -0.182024, 0.738726, 0.648962, -0.903918, 0.13407, -0.40615, 0, 8.14047, 0)
 shadow_enabled = true
 
-[node name="Ground" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.70529, 0)
+[node name="Environ" parent="." instance=ExtResource("1_ig7tw")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-mesh = SubResource("BoxMesh_dff33")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-shape = SubResource("BoxShape3D_2eaju")
-
-[node name="Menu" type="CanvasLayer" parent="."]
-
-[node name="Panel" type="Panel" parent="Menu"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -91.0
-offset_top = -39.0
-offset_right = 91.0
-offset_bottom = 39.0
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 460.0
+offset_top = 275.0
+offset_right = -460.0
+offset_bottom = -284.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/MarginContainer"]
 layout_mode = 2
 
-[node name="btnStart" type="Button" parent="Menu/Panel/MarginContainer/VBoxContainer"]
+[node name="btnServer" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Start Server"
+text = "Create Server"
 
-[node name="btnJoin" type="Button" parent="Menu/Panel/MarginContainer/VBoxContainer"]
+[node name="btnClient" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Join Server"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.55789, -6.74647)
-mesh = SubResource("BoxMesh_cvpsk")
-
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://player.tscn")
+_spawnable_scenes = PackedStringArray("uid://bivmpwjlej2uh")
 spawn_path = NodePath("..")
 
-[connection signal="pressed" from="Menu/Panel/MarginContainer/VBoxContainer/btnStart" to="." method="_on_btn_start_pressed"]
-[connection signal="pressed" from="Menu/Panel/MarginContainer/VBoxContainer/btnJoin" to="." method="_on_btn_join_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/btnServer" to="." method="_on_btn_server_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/btnClient" to="." method="_on_btn_client_pressed"]
