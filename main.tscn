@@ -39,7 +39,7 @@ anchor_bottom = 1.0
 offset_left = 460.0
 offset_top = 275.0
 offset_right = -460.0
-offset_bottom = -284.0
+offset_bottom = -222.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -59,6 +59,19 @@ theme_override_constants/margin_bottom = 10
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/MarginContainer"]
 layout_mode = 2
 
+[node name="txtName" type="TextEdit" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
+placeholder_text = "Character Name"
+scroll_fit_content_height = true
+
+[node name="crColor" type="ColorPicker" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 32)
+layout_mode = 2
+color = Color(1, 0.341176, 0.184314, 1)
+
 [node name="btnServer" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Create Server"
@@ -66,10 +79,6 @@ text = "Create Server"
 [node name="btnClient" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Join Server"
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://bivmpwjlej2uh")
-spawn_path = NodePath("..")
 
 [connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/btnServer" to="." method="_on_btn_server_pressed"]
 [connection signal="pressed" from="CanvasLayer/Panel/MarginContainer/VBoxContainer/btnClient" to="." method="_on_btn_client_pressed"]
